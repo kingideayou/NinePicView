@@ -41,7 +41,7 @@ public class NinePicViewGroup<T> extends ViewGroup {
 
     public void init(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.NinePic);
-        this.mGap = (int) typedArray.getDimension(R.styleable.NinePic_imgGap, 20);
+        this.mGap = (int) typedArray.getDimension(R.styleable.NinePic_imgGap, 0);
         typedArray.recycle();
     }
 
