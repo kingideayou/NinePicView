@@ -7,9 +7,15 @@
     android:orientation="vertical"
     tools:context="me.next.ninepic.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_main"
+    <TextView
+        android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <me.next.ninepiclib.NinePicViewGroup
+        android:id="@+id/nine_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"/>
 
 </LinearLayout>

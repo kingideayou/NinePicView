@@ -50,23 +50,16 @@ public class NinePicViewGroup<T> extends ViewGroup {
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = MeasureSpec.getSize(heightMeasureSpec);
         int totalWidth = width - getPaddingLeft() - getPaddingRight();
-
-        Log.e("NinePicViewGroup", "height1 : " + height);
 
         mGridSize = (totalWidth - mGap * (COLUMN_COUNT - 1)) / COLUMN_COUNT;
 
-
         for (int i = 0; i < getChildCount(); i++) {
             View childView = getChildAt(i);
-            measureChild(childView, widthMeasureSpec, heightMeasureSpec);
+            childView.measure(MeasureSpec.EXACTLY | mGridSize, MeasureSpec.EXACTLY | mGridSize);
         }
 
-
-        height = mGridSize * mRowCount + mGap * (mRowCount - 1) + getPaddingTop() + getPaddingBottom();
-        Log.e("NinePicViewGroup", "height2 : " + height);
-
+        int height = mGridSize * mRowCount + mGap * (mRowCount - 1) + getPaddingTop() + getPaddingBottom();
         setMeasuredDimension(width, height);
     }
 
@@ -173,7 +166,9 @@ public class NinePicViewGroup<T> extends ViewGroup {
     }
 
     private void layoutForChildrenView(int childrenCount) {
-        if (childrenCount <= 0) return;
+        if (childrenCount <= 0) {
+            return;
+        }
         int row, column, left, top, right, bottom;
         for (int i = 0; i < childrenCount; i++) {
             FrameLayout childrenView = (FrameLayout) getChildAt(i);
@@ -184,10 +179,7 @@ public class NinePicViewGroup<T> extends ViewGroup {
             right = left + mGridSize;
             bottom = top + mGridSize;
             childrenView.layout(left, top, right, bottom);
-            LayoutParams layoutParams = childrenView.getLayoutParams();
-            layoutParams.width = right - left;
-            layoutParams.height = bottom - top;
-            childrenView.setLayoutParams(layoutParams);
+
             if (mAdapter != null) {
                 mAdapter.onBindView(getContext(), childrenView, i, mImgDataList.get(i));
             }
