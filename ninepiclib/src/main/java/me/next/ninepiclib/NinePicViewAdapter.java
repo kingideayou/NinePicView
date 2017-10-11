@@ -12,12 +12,12 @@ import java.util.List;
 
 public abstract class NinePicViewAdapter<T> {
 
-    protected abstract void onBindView(Context context, FrameLayout imageView, int position, T t);
+    protected abstract void onBindView(Context context, FrameLayout frameLayout, int position, T t);
 
-    protected void onItemClick(Context context, FrameLayout imageView, int index, List<T> list) {
+    protected void onItemClick(Context context, FrameLayout frameLayout, int index, List<T> list) {
     }
 
-    protected boolean onItemLongClick(Context context, FrameLayout imageView, int index, List<T> list) {
+    protected boolean onItemLongClick(Context context, FrameLayout frameLayout, int index, List<T> list) {
         return false;
     }
 
