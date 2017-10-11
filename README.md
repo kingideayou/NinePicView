@@ -59,7 +59,8 @@ XML 文件中添加如下视图
 
 ### 感谢：[https://github.com/laobie/NineGridImageView](https://github.com/laobie/NineGridImageView)
 
-### License
+## License
+>>>>>>> 590a0297cce71cda56f1130c18113138fe6aa7de
 
     Copyright 2015 NeXT
 
