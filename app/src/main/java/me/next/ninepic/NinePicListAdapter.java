@@ -47,7 +47,7 @@ public class NinePicListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private class TimeLineViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvContent;
-        NinePicViewGroup ninePicViewGroup;
+        NinePicViewGroup<String, FrameLayout> ninePicViewGroup;
 
         public TimeLineViewHolder(View itemView) {
             super(itemView);
@@ -62,7 +62,7 @@ public class NinePicListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    private NinePicViewAdapter<String> mAdapter = new NinePicViewAdapter<String>() {
+    private NinePicViewAdapter<String, FrameLayout> mAdapter = new NinePicViewAdapter<String, FrameLayout>() {
         @Override
         protected void onBindView(Context context, FrameLayout frameLayout, int position, String s) {
             ImageView imageView = frameLayout.findViewById(R.id.image_test);
@@ -74,20 +74,20 @@ public class NinePicListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         @Override
-        protected void onItemClick(Context context, FrameLayout imageView, int index, List<String> list) {
-            super.onItemClick(context, imageView, index, list);
+        protected void onItemClick(Context context, FrameLayout frameLayout, int index, List<String> list) {
+            super.onItemClick(context, frameLayout, index, list);
             Toast.makeText(context, "点击第" + index + "张图片", Toast.LENGTH_SHORT).show();
         }
 
         @Override
-        protected boolean onItemLongClick(Context context, FrameLayout imageView, int index, List<String> list) {
+        protected boolean onItemLongClick(Context context, FrameLayout frameLayout, int index, List<String> list) {
             Toast.makeText(context, "长按第" + index + "张图片", Toast.LENGTH_SHORT).show();
-            return super.onItemLongClick(context, imageView, index, list);
+            return super.onItemLongClick(context, frameLayout, index, list);
         }
 
         @Override
         protected int getLayoutId() {
-            return R.layout.test;
+            return R.layout.item_with_tag;
         }
     };
 

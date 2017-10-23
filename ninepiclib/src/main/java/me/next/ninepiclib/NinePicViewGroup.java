@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 /**
  * Created by NeXT on 17/10/10.
  */
-public class NinePicViewGroup<T> extends ViewGroup {
+public class NinePicViewGroup<T, V extends View> extends ViewGroup {
 
     private static final int ROW_COUNT = 3;
     private static final int COLUMN_COUNT = 3;
@@ -23,8 +22,8 @@ public class NinePicViewGroup<T> extends ViewGroup {
     private int mGridSize;
     private int mRowCount;
     private List<T> mImgDataList = new ArrayList<>();
-    private NinePicViewAdapter<T> mAdapter;
-    private List<FrameLayout> mFrameLayoutList = new ArrayList<>();
+    private List<V> mViewListList = new ArrayList<>();
+    private NinePicViewAdapter<T, V> mAdapter;
 
     public NinePicViewGroup(Context context) {
         this(context, null);
@@ -82,11 +81,11 @@ public class NinePicViewGroup<T> extends ViewGroup {
         if (mImgDataList == null) {
             int i = 0;
             while (i < newShowCount) {
-                ViewGroup iv = getFrameLayout(i);
-                if (iv == null) {
+                V view = getFrameLayout(i);
+                if (view == null) {
                     return;
                 }
-                addView(iv, generateDefaultLayoutParams());
+                addView(view, generateDefaultLayoutParams());
                 i++;
             }
         } else {
@@ -95,11 +94,11 @@ public class NinePicViewGroup<T> extends ViewGroup {
                 removeViews(newShowCount, oldShowCount - newShowCount);
             } else if (oldShowCount < newShowCount) {
                 for (int i = oldShowCount; i < newShowCount; i++) {
-                    ViewGroup iv = getFrameLayout(i);
-                    if (iv == null) {
+                    V view = getFrameLayout(i);
+                    if (view == null) {
                         return;
                     }
-                    addView(iv, generateDefaultLayoutParams());
+                    addView(view, generateDefaultLayoutParams());
                 }
             }
         }
@@ -107,26 +106,26 @@ public class NinePicViewGroup<T> extends ViewGroup {
         requestLayout();
     }
 
-    private FrameLayout getFrameLayout(final int position) {
-        if (position < mFrameLayoutList.size()) {
-            return mFrameLayoutList.get(position);
+    private V getFrameLayout(final int position) {
+        if (position < mViewListList.size()) {
+            return mViewListList.get(position);
         } else {
             if (mAdapter != null) {
-                FrameLayout frameLayout = mAdapter.generateFrameLayout(getContext());
-                mFrameLayoutList.add(frameLayout);
-                frameLayout.setOnClickListener(new OnClickListener() {
+                final V view = mAdapter.generateFrameLayout(getContext());
+                mViewListList.add(view);
+                view.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mAdapter.onItemClick(getContext(), (FrameLayout) v, position, mImgDataList);
+                        mAdapter.onItemClick(getContext(), view, position, mImgDataList);
                     }
                 });
-                frameLayout.setOnLongClickListener(new OnLongClickListener() {
+                view.setOnLongClickListener(new OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        return mAdapter.onItemLongClick(getContext(), (FrameLayout) v, position, mImgDataList);
+                        return mAdapter.onItemLongClick(getContext(), view, position, mImgDataList);
                     }
                 });
-                return frameLayout;
+                return view;
             } else {
                 Log.e("NinePic", "Your must set a NinePicAdapter for NinePic");
                 return null;
@@ -171,7 +170,7 @@ public class NinePicViewGroup<T> extends ViewGroup {
         }
         int row, column, left, top, right, bottom;
         for (int i = 0; i < childrenCount; i++) {
-            FrameLayout childrenView = (FrameLayout) getChildAt(i);
+            V childrenView = (V) getChildAt(i);
             row = i / COLUMN_COUNT;
             column = i % COLUMN_COUNT;
             left = (mGridSize + mGap) * column + getPaddingLeft();
@@ -186,7 +185,7 @@ public class NinePicViewGroup<T> extends ViewGroup {
         }
     }
 
-    public void setAdapter(NinePicViewAdapter<T> adapter) {
+    public void setAdapter(NinePicViewAdapter<T, V> adapter) {
         mAdapter = adapter;
     }
 }
