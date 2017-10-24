@@ -21,6 +21,9 @@ public class NinePicViewGroup<T, V extends View> extends ViewGroup {
     private int mGap;
     private int mGridSize;
     private int mRowCount;
+    private int singleImgWidth;
+    private int singleImgHeight;
+    private boolean useSpecifySize;
     private List<T> mImgDataList = new ArrayList<>();
     private List<V> mViewListList = new ArrayList<>();
     private NinePicViewAdapter<T, V> mAdapter;
@@ -51,6 +54,22 @@ public class NinePicViewGroup<T, V extends View> extends ViewGroup {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int totalWidth = width - getPaddingLeft() - getPaddingRight();
 
+        if (mImgDataList.size() == 1) {
+            int[] size = mAdapter.getImgWidthHeight(mImgDataList.get(0));
+            singleImgWidth = size[0];
+            singleImgHeight = size[1];
+
+            useSpecifySize = singleImgWidth > 0 && singleImgHeight > 0;
+            if (useSpecifySize) {
+                for (int i = 0; i < getChildCount(); i++) {
+                    View childView = getChildAt(i);
+                    childView.measure(MeasureSpec.EXACTLY | singleImgWidth, MeasureSpec.EXACTLY | singleImgHeight);
+                }
+                setMeasuredDimension(singleImgWidth, singleImgHeight);
+                return;
+            }
+        }
+
         mGridSize = (totalWidth - mGap * (COLUMN_COUNT - 1)) / COLUMN_COUNT;
 
         for (int i = 0; i < getChildCount(); i++) {
@@ -75,6 +94,7 @@ public class NinePicViewGroup<T, V extends View> extends ViewGroup {
             this.setVisibility(VISIBLE);
         }
         int imagesSize = lists.size();
+        mAdapter.setImgCount(imagesSize);
         getRowCount(imagesSize);
         int newShowCount = getNeedShowCount(imagesSize);
 
@@ -168,9 +188,27 @@ public class NinePicViewGroup<T, V extends View> extends ViewGroup {
         if (childrenCount <= 0) {
             return;
         }
+
         int row, column, left, top, right, bottom;
+        if (childrenCount == 1 && useSpecifySize) {
+            V childrenView = (V) getChildAt(0);
+            childrenView.measure(MeasureSpec.EXACTLY | singleImgWidth, MeasureSpec.EXACTLY | singleImgHeight);
+
+            left = getPaddingLeft();
+            top = getPaddingTop();
+            right = left + singleImgWidth;
+            bottom = top + singleImgHeight;
+            childrenView.layout(left, top, right, bottom);
+
+            if (mAdapter != null) {
+                mAdapter.onBindView(getContext(), childrenView, 0, mImgDataList.get(0));
+            }
+            return;
+        }
+
         for (int i = 0; i < childrenCount; i++) {
             V childrenView = (V) getChildAt(i);
+            childrenView.measure(MeasureSpec.EXACTLY | mGridSize, MeasureSpec.EXACTLY | mGridSize);
             row = i / COLUMN_COUNT;
             column = i % COLUMN_COUNT;
             left = (mGridSize + mGap) * column + getPaddingLeft();

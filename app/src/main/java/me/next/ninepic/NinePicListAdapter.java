@@ -66,11 +66,16 @@ public class NinePicListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @Override
         protected void onBindView(Context context, FrameLayout frameLayout, int position, String s) {
             ImageView imageView = frameLayout.findViewById(R.id.image_test);
-            Glide.with(imageView.getContext()).load("https://tva3.sinaimg.cn/crop.6.0.753.753.180/6db4aff6jw8et9dnyhy7oj20lc0lcabg.jpg").into(imageView);
-            if (position % 2 == 0) {
+            if (position % 2 != 0) {
                 View ivTag = frameLayout.findViewById(R.id.tag);
                 ivTag.setVisibility(ImageView.GONE);
             }
+            if (getImgCount() == 1) {
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            } else {
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }
+            Glide.with(imageView.getContext()).load("http://wx1.sinaimg.cn/mw690/64e22e91gy1fksbcqgtalj20qo0jhdie.jpg").into(imageView);
         }
 
         @Override
@@ -89,6 +94,14 @@ public class NinePicListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         protected int getLayoutId() {
             return R.layout.item_with_tag;
         }
+
+        @Override
+        protected int[] getImgWidthHeight(String s) {
+            return getImgWidthHeightFromUrl(s);
+        }
     };
 
+    private int[] getImgWidthHeightFromUrl(String imgUrl) {
+        return new int[]{600, 400};
+    }
 }

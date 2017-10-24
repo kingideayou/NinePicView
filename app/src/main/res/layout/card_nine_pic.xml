@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:padding="6dp"
     tools:context="me.next.ninepic.MainActivity">
 
     <TextView
@@ -15,9 +16,9 @@
 
     <me.next.ninepiclib.NinePicViewGroup
         android:id="@+id/nine_pic"
-        custom:imgGap="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp"/>
+        android:layout_marginTop="2dp"
+        custom:imgGap="6dp"/>
 
 </LinearLayout>

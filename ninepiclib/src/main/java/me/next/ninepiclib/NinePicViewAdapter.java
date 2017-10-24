@@ -12,6 +12,9 @@ import java.util.List;
 
 public abstract class NinePicViewAdapter<T, V extends View> {
 
+    private static final int[] IMG_DEFAULT_SIZE = new int[]{0, 0};
+    private int imgCount;
+
     protected abstract void onBindView(Context context, V view, int position, T t);
 
     protected void onItemClick(Context context, V view, int index, List<T> list) {
@@ -23,6 +26,21 @@ public abstract class NinePicViewAdapter<T, V extends View> {
 
     V generateFrameLayout(Context context) {
         return (V) LayoutInflater.from(context).inflate(getLayoutId(), null);
+    }
+
+    public void setImgCount(int imgCount) {
+        this.imgCount = imgCount;
+    }
+
+    protected int getImgCount() {
+        return imgCount;
+    }
+
+    /**
+     * @return result[0] : imageWidth, result[1] : imageHeight
+     */
+    protected int[] getImgWidthHeight(T t) {
+        return IMG_DEFAULT_SIZE;
     }
 
     protected abstract int getLayoutId();
