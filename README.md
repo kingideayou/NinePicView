@@ -1,6 +1,6 @@
 # NinePicView [![TagCloudView](https://img.shields.io/badge/NeXT___-NinePicView-brightgreen.svg?style=flat)](https://kingideayou.github.io)
 
-九宫格图片，支持自定义 Item 样式，轻松实现[gif]、[长图]标记
+九宫格图片，支持单图设置宽高，支持通过 xml 自定义 Item 样式，轻松实现[gif]、[长图]标记
 
 # How to use 如何使用
 
@@ -49,13 +49,10 @@ XML 文件中添加如下视图
         ninePicViewGroup.setImagesData(imageDataList);
 
 
-### 布局文件
-
-![](http://ww1.sinaimg.cn/mw690/6db4aff6gy1fkeca8qztsj21mc0rcgry.jpg)
-
 ### 效果图
 
-![](http://ww1.sinaimg.cn/mw690/6db4aff6gy1fkec9qrwfhj20u01hcalz.jpg)
+![](http://ww1.sinaimg.cn/mw690/6db4aff6ly1fkt7277qgkj20wg198wl8.jpg)
+![](http://ww1.sinaimg.cn/mw690/6db4aff6ly1fkt6zfkpf5g20gv0omu0x.gif)
 
 ### 感谢：[https://github.com/laobie/NineGridImageView](https://github.com/laobie/NineGridImageView)
 

@@ -70,12 +70,8 @@ public class NinePicListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 View ivTag = frameLayout.findViewById(R.id.tag);
                 ivTag.setVisibility(ImageView.GONE);
             }
-            if (getImgCount() == 1) {
-                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            } else {
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            }
-            Glide.with(imageView.getContext()).load("http://wx1.sinaimg.cn/mw690/64e22e91gy1fksbcqgtalj20qo0jhdie.jpg").into(imageView);
+            Glide.with(imageView.getContext()).load(s).into(imageView);
+
         }
 
         @Override
@@ -102,6 +98,6 @@ public class NinePicListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     };
 
     private int[] getImgWidthHeightFromUrl(String imgUrl) {
-        return new int[]{600, 400};
+        return new int[]{558, 314};
     }
 }

@@ -26,8 +26,12 @@ public class MainActivity extends AppCompatActivity {
             List<String> imgList = new ArrayList<>();
 
             int imgCount = i % 9 + 1;
-            for (int j = 0; j < imgCount; j++) {
-                imgList.add("" + j);
+            if (imgCount == 1) {
+                imgList.add("http://7xs5ba.com1.z0.glb.clouddn.com/chedui.jpg");
+            } else {
+                for (int j = 0; j < imgCount; j++) {
+                    imgList.add("http://odum9helk.qnssl.com/resource/gogopher.jpg?imageView2/1/w/200/h/200");
+                }
             }
             timeLineList.add(new TimeLineBean("内容" + i, imgList));
         }

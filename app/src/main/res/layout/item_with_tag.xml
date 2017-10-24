@@ -14,13 +14,14 @@
 
     <TextView
         android:id="@+id/tag"
-        android:text="Gif"
-        android:gravity="center"
-        android:background="@color/colorAccent"
-        android:layout_gravity="right|bottom"
-        android:layout_marginRight="6dp"
-        android:layout_marginBottom="6dp"
         android:layout_width="39dp"
-        android:layout_height="20dp"/>
+        android:layout_height="20dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="6dp"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/button_stroke_gray_border"
+        android:gravity="center"
+        android:text="长图"
+        android:textColor="#eaecee"/>
 
 </FrameLayout>
