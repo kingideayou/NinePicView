@@ -21,9 +21,9 @@ public class NinePicViewGroup<T, V extends View> extends ViewGroup {
     private int mGap;
     private int mGridSize;
     private int mRowCount;
-    private int singleImgWidth;
-    private int singleImgHeight;
-    private boolean useSpecifySize;
+    private int mSingleImgWidth;
+    private int mSingleImgHeight;
+    private boolean mUseSpecifySize;
     private List<T> mImgDataList = new ArrayList<>();
     private List<V> mViewListList = new ArrayList<>();
     private NinePicViewAdapter<T, V> mAdapter;
@@ -56,16 +56,16 @@ public class NinePicViewGroup<T, V extends View> extends ViewGroup {
 
         if (mImgDataList.size() == 1) {
             int[] size = mAdapter.getImgWidthHeight(mImgDataList.get(0));
-            singleImgWidth = size[0];
-            singleImgHeight = size[1];
+            mSingleImgWidth = size[0];
+            mSingleImgHeight = size[1];
 
-            useSpecifySize = singleImgWidth > 0 && singleImgHeight > 0;
-            if (useSpecifySize) {
+            mUseSpecifySize = mSingleImgWidth > 0 && mSingleImgHeight > 0;
+            if (mUseSpecifySize) {
                 for (int i = 0; i < getChildCount(); i++) {
                     View childView = getChildAt(i);
-                    childView.measure(MeasureSpec.EXACTLY | singleImgWidth, MeasureSpec.EXACTLY | singleImgHeight);
+                    childView.measure(MeasureSpec.EXACTLY | mSingleImgWidth, MeasureSpec.EXACTLY | mSingleImgHeight);
                 }
-                setMeasuredDimension(singleImgWidth, singleImgHeight);
+                setMeasuredDimension(mSingleImgWidth, mSingleImgHeight);
                 return;
             }
         }
@@ -190,14 +190,14 @@ public class NinePicViewGroup<T, V extends View> extends ViewGroup {
         }
 
         int row, column, left, top, right, bottom;
-        if (childrenCount == 1 && useSpecifySize) {
+        if (childrenCount == 1 && mUseSpecifySize) {
             V childrenView = (V) getChildAt(0);
-            childrenView.measure(MeasureSpec.EXACTLY | singleImgWidth, MeasureSpec.EXACTLY | singleImgHeight);
+            childrenView.measure(MeasureSpec.EXACTLY | mSingleImgWidth, MeasureSpec.EXACTLY | mSingleImgHeight);
 
             left = getPaddingLeft();
             top = getPaddingTop();
-            right = left + singleImgWidth;
-            bottom = top + singleImgHeight;
+            right = left + mSingleImgWidth;
+            bottom = top + mSingleImgHeight;
             childrenView.layout(left, top, right, bottom);
 
             if (mAdapter != null) {

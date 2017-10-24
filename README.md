@@ -1,4 +1,4 @@
-# NinePicView [![TagCloudView](https://img.shields.io/badge/NeXT___-NinePicView-brightgreen.svg?style=flat))](https://kingideayou.github.io)
+# NinePicView [![TagCloudView](https://img.shields.io/badge/NeXT___-NinePicView-brightgreen.svg?style=flat)](https://kingideayou.github.io)
 
 九宫格图片，支持自定义 Item 样式，轻松实现[gif]、[长图]标记
 
@@ -60,7 +60,6 @@ XML 文件中添加如下视图
 ### 感谢：[https://github.com/laobie/NineGridImageView](https://github.com/laobie/NineGridImageView)
 
 ## License
->>>>>>> 590a0297cce71cda56f1130c18113138fe6aa7de
 
     Copyright 2015 NeXT
 
